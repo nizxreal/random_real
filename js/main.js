@@ -50,6 +50,8 @@ function updateClock() {
     const options = { weekday: "long", year: "numeric", month: "long", day: "numeric" };
     tglEl.textContent = now.toLocaleDateString("id-ID", options);
   }
+
+  updateGreeting();
 }
 
 function getTimeGreeting() {
@@ -117,6 +119,16 @@ document.addEventListener("DOMContentLoaded", () => {
   setInterval(updateClock, 1000);
   renderUcapan();
   updateGreeting();
+
+  const btnGanti = document.getElementById("btn-ganti");
+  if (btnGanti) {
+    btnGanti.addEventListener("click", nextUcapan);
+  }
+
+  const btnSalin = document.getElementById("btn-salin");
+  if (btnSalin) {
+    btnSalin.addEventListener("click", copyUcapan);
+  }
 
   setInterval(() => {
     if (autoRotate) {
