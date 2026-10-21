@@ -1,17 +1,23 @@
 const ucapanList = [
-  "Istirahat yang cukup. Semoga harimu menyenangkan dan esok hari membawa hal-hal baik.",
-  "Lepaskan semua lelah hari ini. Tarik napas dalam-dalam, malam ini milikmu untuk beristirahat.",
-  "Tutup hari dengan rasa syukur. Apapun yang terjadi hari ini, kamu sudah berusaha yang terbaik.",
-  "Malam tenang adalah hadiah setelah hari yang panjang. Selamat tidur nyenyak.",
-  "Semoga esok pagi menyambutmu dengan energi baru dan semangat yang lebih cerah."
+  "Jangan lupa istirahat, Savira! Kehidupan itu seperti bunga yang butuh waktu untuk mekar. Semangat terus!",
+  "Setiap pagi adalah startslip baru. Wahai Savira Dwi Hafsari, terus berinovasi dan tunjukkan talenta mu!",
+  "Keiburan itu kadang berat, tapi tekadmu tetap ringan. Selalu percaya pada diri sendiri ya!",
+  "Bersyukur atas apa yang sudah kita miliki hari ini. Besok akan lebih baik, terutama untuk Savira!",
+  "Jika kamu bisa mengubah satu garis kode, kamu bisa mengubah seluruh dunia. Selamat tidur, Savira!",
+  "Hari ini adalah langkah maju. Wahai Savira Dwi Hafsari, terus berusaha yang terbaik!",
+  "Kesuksesan bukan tujuan akhir, tapi hasil dari usaha konsisten. Tunjukkan kekuatanmu!",
+  "Malam ini adalah mukmin untuk mimpi berikutnya. Bangun dengan semangat, Savira!",
+  "Setiap masalah adalah peluang untuk belajar. Lihat detik-detik kunci di depan matamu!",
+  "Kita tidak pernah berakhir, hanya berpindah tempat. Teruslah maju dengan hati tenang!"
 ];
 
 let currentIndex = 0;
+let autoRotate = true;
 
 function initStars() {
   const sky = document.getElementById("sky");
   if (!sky) return;
-  const count = 40;
+  const count = 60;
   for (let i = 0; i < count; i++) {
     const star = document.createElement("div");
     star.className = "star";
@@ -46,13 +52,24 @@ function updateClock() {
   }
 }
 
+function getTimeGreeting() {
+  const now = new Date();
+  const hour = now.getHours();
+  if (hour >= 15 && hour < 18) return "Sore";
+  if (hour >= 12 && hour < 15) return "Siang";
+  if (hour >= 18 && hour < 21) return "Malam";
+  if (hour >= 6 && hour < 12) return "Pagi";
+  return "Malam";
+}
+
+const CONSTANT_NAME = "Savira Dwi Hafsari";
+
 function updateGreeting() {
   const greetingEl = document.getElementById("greeting");
-  const nameInput = document.getElementById("nama");
-  const name = nameInput ? nameInput.value.trim() : "";
+  const timeGreeting = getTimeGreeting();
 
   if (greetingEl) {
-    greetingEl.textContent = name ? `Selamat Malam, ${name}` : "Selamat Malam";
+    greetingEl.textContent = `${timeGreeting}, ${CONSTANT_NAME}`;
   }
 }
 
@@ -77,7 +94,7 @@ async function copyUcapan() {
   const textEl = document.getElementById("baris-ucapan");
   const statusEl = document.getElementById("status");
 
-  const fullText = `${greetingEl ? greetingEl.textContent : "Selamat Malam"}\n\n${textEl ? textEl.textContent : ""}`;
+  const fullText = `${greetingEl ? greetingEl.textContent : getTimeGreeting()}, ${CONSTANT_NAME}\\n\\n${textEl ? textEl.textContent : ""}`;
 
   try {
     await navigator.clipboard.writeText(fullText);
@@ -99,19 +116,11 @@ document.addEventListener("DOMContentLoaded", () => {
   updateClock();
   setInterval(updateClock, 1000);
   renderUcapan();
+  updateGreeting();
 
-  const nameInput = document.getElementById("nama");
-  if (nameInput) {
-    nameInput.addEventListener("input", updateGreeting);
-  }
-
-  const btnGanti = document.getElementById("btn-ganti");
-  if (btnGanti) {
-    btnGanti.addEventListener("click", nextUcapan);
-  }
-
-  const btnSalin = document.getElementById("btn-salin");
-  if (btnSalin) {
-    btnSalin.addEventListener("click", copyUcapan);
-  }
+  setInterval(() => {
+    if (autoRotate) {
+      nextUcapan();
+    }
+  }, 3000);
 });
