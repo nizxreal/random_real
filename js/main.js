@@ -150,6 +150,21 @@ document.addEventListener("DOMContentLoaded", () => {
     btnBuka.addEventListener("click", openGallery);
   }
 
+  const btnBukaKartu = document.getElementById("btn-buka-kartu");
+  if (btnBukaKartu) {
+    btnBukaKartu.addEventListener("click", toggleGreetingCardContent);
+  }
+
+  const btnTutupKartu = document.getElementById("btn-tutup-kartu");
+  if (btnTutupKartu) {
+    btnTutupKartu.addEventListener("click", toggleGreetingCardContent);
+  }
+
+  const greetingClose = document.getElementById("greeting-close");
+  if (greetingClose) {
+    greetingClose.addEventListener("click", closeGreetingCard);
+  }
+
   setInterval(() => {
     if (autoRotate) {
       nextUcapan();
@@ -178,13 +193,52 @@ function openGallery() {
       galleryModal.classList.remove("active");
     }
     openCake();
-  }, 2500);
+  }, 3500);
 }
 
 function openCake() {
   const cakeModal = document.getElementById("modal-cake");
   if (cakeModal) {
     cakeModal.classList.add("active");
+  }
+
+  setTimeout(() => {
+    if (cakeModal) {
+      cakeModal.classList.remove("active");
+    }
+    openGreetingCard();
+  }, 3000);
+}
+
+function openGreetingCard() {
+  const greetingModal = document.getElementById("modal-greeting");
+  const greetingMessage = document.getElementById("greeting-message");
+  
+  if (greetingModal) {
+    greetingModal.classList.add("active");
+    
+    // Set message dari ucapan saat ini
+    if (greetingMessage) {
+      greetingMessage.textContent = ucapanList[currentIndex];
+    }
+  }
+}
+
+function closeGreetingCard() {
+  const greetingModal = document.getElementById("modal-greeting");
+  if (greetingModal) {
+    greetingModal.classList.remove("active");
+  }
+  autoRotate = true;
+}
+
+function toggleGreetingCardContent() {
+  const cardFront = document.querySelector(".greeting-card-front");
+  const cardBack = document.querySelector(".greeting-card-back");
+  
+  if (cardFront && cardBack) {
+    cardFront.classList.toggle("hidden");
+    cardBack.classList.toggle("hidden");
   }
 }
 
