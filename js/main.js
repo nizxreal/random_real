@@ -169,13 +169,13 @@ function openGallery() {
   const galleryModal = document.getElementById("modal-gallery");
   if (galleryModal) {
     setPhotoLabels();
-    galleryModal.style.display = "flex";
+    galleryModal.classList.add("active");
   }
   autoRotate = false;
 
   setTimeout(() => {
     if (galleryModal) {
-      galleryModal.style.display = "none";
+      galleryModal.classList.remove("active");
     }
     openCake();
   }, 2500);
@@ -184,13 +184,13 @@ function openGallery() {
 function openCake() {
   const cakeModal = document.getElementById("modal-cake");
   if (cakeModal) {
-    cakeModal.style.display = "flex";
+    cakeModal.classList.add("active");
   }
 }
 
 function closeModal(modalEl) {
   if (modalEl) {
-    modalEl.style.display = "none";
+    modalEl.classList.remove("active");
   }
   autoRotate = true;
 }

@@ -237,6 +237,8 @@ button:active {
 /* ===== MODAL OVERLAY ===== */
 .modal {
   display: none;
+  visibility: hidden;
+  pointer-events: none;
   position: fixed;
   inset: 0;
   z-index: 1000;
@@ -245,6 +247,12 @@ button:active {
   backdrop-filter: blur(8px);
   background: rgba(0, 0, 0, 0.6);
   animation: fadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.modal.active {
+  display: flex;
+  visibility: visible;
+  pointer-events: all;
 }
 
 .modal-content {
