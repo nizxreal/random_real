@@ -11,8 +11,32 @@ const ucapanList = [
   "Kita tidak pernah berakhir, hanya berpindah tempat. Teruslah maju dengan hati tenang!"
 ];
 
+const photoLabels = ["Foto 1", "Foto 2", "Foto 3", "Foto 4", "Foto 5", "Foto 6"];
+
 let currentIndex = 0;
 let autoRotate = true;
+
+function initFloatingElements() {
+  const wrap = document.createElement("div");
+  wrap.className = "float-wrap";
+  wrap.setAttribute("aria-hidden", "true");
+
+  const emojis = ["💖", "✨", "🎂", "🎉", "🌟", "💝", "🎈", "🍰"];
+  const count = 16;
+
+  for (let i = 0; i < count; i++) {
+    const item = document.createElement("span");
+    item.className = "float-item";
+    item.textContent = emojis[i % emojis.length];
+    item.style.left = `${Math.random() * 90}%`;
+    item.style.top = `${Math.random() * 90}%`;
+    item.style.animationDelay = `${Math.random() * 4}s`;
+    item.style.animationDuration = `${4 + Math.random() * 4}s`;
+    wrap.appendChild(item);
+  }
+
+  document.body.appendChild(wrap);
+}
 
 function initStars() {
   const sky = document.getElementById("sky");
@@ -115,19 +139,15 @@ async function copyUcapan() {
 
 document.addEventListener("DOMContentLoaded", () => {
   initStars();
+  initFloatingElements();
   updateClock();
   setInterval(updateClock, 1000);
   renderUcapan();
   updateGreeting();
 
-  const btnGanti = document.getElementById("btn-ganti");
-  if (btnGanti) {
-    btnGanti.addEventListener("click", nextUcapan);
-  }
-
-  const btnSalin = document.getElementById("btn-salin");
-  if (btnSalin) {
-    btnSalin.addEventListener("click", copyUcapan);
+  const btnBuka = document.getElementById("btn-buka");
+  if (btnBuka) {
+    btnBuka.addEventListener("click", openGallery);
   }
 
   setInterval(() => {
@@ -136,3 +156,41 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }, 3000);
 });
+
+function setPhotoLabels() {
+  const photos = document.querySelectorAll(".photo-item");
+  photos.forEach((el, i) => {
+    el.setAttribute("data-label", photoLabels[i] || `Foto ${i + 1}`);
+    el.textContent = ["📸", "🖼️", "📷", "🎞️", "🧩", "🌅"][i] || "🖼️";
+  });
+}
+
+function openGallery() {
+  const galleryModal = document.getElementById("modal-gallery");
+  if (galleryModal) {
+    setPhotoLabels();
+    galleryModal.style.display = "flex";
+  }
+  autoRotate = false;
+
+  setTimeout(() => {
+    if (galleryModal) {
+      galleryModal.style.display = "none";
+    }
+    openCake();
+  }, 2500);
+}
+
+function openCake() {
+  const cakeModal = document.getElementById("modal-cake");
+  if (cakeModal) {
+    cakeModal.style.display = "flex";
+  }
+}
+
+function closeModal(modalEl) {
+  if (modalEl) {
+    modalEl.style.display = "none";
+  }
+  autoRotate = true;
+}

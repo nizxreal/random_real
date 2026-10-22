@@ -22,8 +22,7 @@
       </div>
 
       <div class="actions">
-        <button type="button" id="btn-ganti" class="primary">Ganti ucapan</button>
-        <button type="button" id="btn-salin" class="secondary">Salin ucapan</button>
+        <button type="button" id="btn-buka" class="primary">Buka</button>
       </div>
 
       <p class="status" id="status" role="status" aria-live="polite"></p>
@@ -31,6 +30,45 @@
 
     <p class="foot" id="indeks-ucapan">Ucapan 1 dari 10</p>
   </main>
+
+  <!-- Modal Gallery Foto -->
+  <div class="modal" id="modal-gallery">
+    <div class="modal-content">
+      <button type="button" class="modal-close" id="modal-close" aria-label="Tutup">✕</button>
+      <div class="gallery-container">
+        <div class="photo-item photo-left-1"></div>
+        <div class="photo-item photo-right-1"></div>
+        <div class="photo-item photo-left-2"></div>
+        <div class="photo-item photo-right-2"></div>
+        <div class="photo-item photo-left-3"></div>
+        <div class="photo-item photo-right-3"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Kue Ulang Tahun -->
+  <div class="modal" id="modal-cake">
+    <div class="modal-content cake-content">
+      <button type="button" class="modal-close" id="cake-close" aria-label="Tutup">✕</button>
+      <div class="cake-container">
+        <div class="cake">
+          <div class="cake-layer cake-layer-bottom"></div>
+          <div class="cake-layer cake-layer-middle"></div>
+          <div class="cake-layer cake-layer-top"></div>
+          <div class="candle candle-1">
+            <div class="flame"></div>
+          </div>
+          <div class="candle candle-2">
+            <div class="flame"></div>
+          </div>
+          <div class="candle candle-3">
+            <div class="flame"></div>
+          </div>
+        </div>
+        <p class="cake-text">Selamat Ulang Tahun Savira! 🎉</p>
+      </div>
+    </div>
+  </div>
 
   <script src="js/main.js"></script>
 </body>
